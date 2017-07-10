@@ -43,8 +43,8 @@ var floorFromRoom = {
 var strings = {
     en: {
         "room-alloffices": 'all offices',
-        "room-bigroom": 'big room',
-        "room-glassdoor": 'glass door',
+        "room-clark": 'clark room',
+        "room-st-urbain": 'st-urbain room',
         "room-washroom": 'washrooms',
         "room-osmocafe": 'osmo café',
         "room-floor3": '3rd floor',
@@ -57,15 +57,15 @@ var strings = {
         "events-heading-tomorrow": "Events on Tomorrow",
 
         "room-alloffices-long": 'all offices',
-        "room-bigroom-long": 'big room',
-        "room-glassdoorroom-long": 'glass door room',
+        "room-clark-long": 'clark room',
+        "room-st-urbain-long": 'st-urbain room',
         "room-washroom-long": 'washrooms',
         "room-osmocafe-long": 'osmo café',
         "room": 'room',
         "office": 'office',
 
-        "directions-bigroom": "3rd floor, go up stairs through door way to the right.",
-        "directions-glassdoor": "3rd floor, go up stairs through door way to the right.",
+        "directions-clark": "3rd floor, go up stairs through door way to the right.",
+        "directions-st-urbain": "3rd floor, go up stairs through door way to the right.",
         "directions-osmocafe": "This floor, behind you.",
         "directions-floor1": "1st floor, go up stairs through door way to the right.",
         "directions-floor2": "2nd floor, go up stairs through door way to the right.",
@@ -82,8 +82,8 @@ var strings = {
     },
     fr: {
         "room-alloffices": 'bureaux',
-        "room-bigroom": 'grande salle',
-        "room-glassdoor": 'porte vitré',
+        "room-clark": 'salle clark',
+        "room-st-urbain": 'salle st-urbain',
         "room-washroom": 'toilettes',
         "room-osmocafe": 'café osmo',
         "room-floor3": '3ieme étage',
@@ -93,16 +93,16 @@ var strings = {
         "room-videotron": 'salle videotron',
 
         "room-alloffices-long": 'bureaux',
-        "room-bigroom-long": 'la grande salle',
-        "room-glassdoorroom-long": 'la salle à la porte vitré',
+        "room-clark-long": 'la salle clark',
+        "room-st-urbain-long": 'la salle st-urbain',
         "room-washroom-long": 'toilettes',
         "room-osmocafe-long": 'café osmo',
 
         "events-heading-today": 'Evénements aujourd\'hui',
         "events-heading-tomorrow": 'Evénements demain',
 
-        "directions-bigroom": "Au 3ieme étage, par la porte à droite.",
-        "directions-glassdoor": "Au 3ieme étage, par la porte à droite.",
+        "directions-clark": "Au 3ieme étage, par la porte à droite.",
+        "directions-st-urbain": "Au 3ieme étage, par la porte à droite.",
         "directions-osmocafe": "Derrière vous, à cet étage",
         "directions-floor3": "Au 3ieme étage, par la porte à droite.",
 
@@ -225,8 +225,8 @@ function switchLocale() {
     $('.events h1').html(strings[lang]['events-heading-' + days[dayMode]]);
 
     $('#allrooms .alloffices').html(getText('room-alloffices-long'));
-    $('#allrooms .bigroom').html(getText('room-bigroom-long'));
-    $('#allrooms .glassdoorroom').html(getText('room-glassdoorroom-long'));
+    $('#allrooms .clark').html(getText('room-clark-long'));
+    $('#allrooms .st-urbain').html(getText('room-st-urbain-long'));
 
     $('.noevents').html(getText('noevents-' + days[dayMode]));
 }
