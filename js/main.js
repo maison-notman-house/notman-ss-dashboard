@@ -12,11 +12,16 @@ var dayMode = 'Today';
 // way they are entered into the calendar. Should this be
 // moved to the API server?
 var roomToKey = {
-    'glass door room': 'glassdoor',
-    'glass door': 'glassdoor',
-    'glassdoor': 'glassdoor',
-    'bigroom': 'bigroom',
-    'big room': 'bigroom',
+    'glass door room': 'st-urbain room',
+    'glass door': 'st-urbain room',
+    'glassdoor': 'st-urbain room',
+    'saint-urbain': 'st-urbain room',
+    'st-urbain': 'st-urbain room',
+    'st-urbain room': 'st-urbain room',
+    'bigroom': 'clark room',
+    'big room': 'clark room',    
+    'clark room': 'clark room', 
+    'clark': 'clark room', 
     'osmocafe': 'osmocafe',
     'osmo cafe': 'osmocafe',
     'cafe': 'osmocafe',
