@@ -136,6 +136,15 @@ header .notmanlogo {
     font-family: 'Open Sans';
 }
 
+.events li.hidden {
+    display: none;
+}
+
+#page {
+    float: right;
+    margin-right: 200px;
+}
+
 #communitybuilt {
     position: absolute;
     left: 30px;

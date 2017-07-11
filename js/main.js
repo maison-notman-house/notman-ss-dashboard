@@ -199,15 +199,8 @@ function updateDayMode() {
     }
 }
 
-function switchLocale() {
-    langIdx++;
-    if (langIdx >= languages.length) {
-        langIdx = 0;
-    }
-    moment.locale(languages[langIdx]);
 
-    var lang = languages[langIdx];
-
+function updateTexts() {
     updateDate();
     updateDayMode();
 
@@ -222,13 +215,25 @@ function switchLocale() {
     }
 
     console.log('===', 'events-heading-' + days[dayMode]);
-    $('.events h1').html(strings[lang]['events-heading-' + days[dayMode]]);
+    $('.events h1 #main-title').html(strings[lang]['events-heading-' + days[dayMode]]);
 
     $('#allrooms .alloffices').html(getText('room-alloffices-long'));
     $('#allrooms .clark').html(getText('room-clark-long'));
     $('#allrooms .st-urbain').html(getText('room-st-urbain-long'));
 
     $('.noevents').html(getText('noevents-' + days[dayMode]));
+}
+
+function switchLocale() {
+    langIdx++;
+    if (langIdx >= languages.length) {
+        langIdx = 0;
+    }
+    moment.locale(languages[langIdx]);
+
+    var lang = languages[langIdx];
+
+    updateTexts();
 }
 
 function toISODate(date) {
@@ -292,12 +297,45 @@ function updateEvents() {
         if (contentType && contentType.indexOf("application/json") !== -1) {
             return response.json().then(function(json) {
                 renderEvents(json);
+                cycleEvents();
             });
         } else {
             console.log("Oops, we haven't got JSON!");
         }
     });
 
+}
+
+var idx = 0;
+function cycleEvents() {
+    var elEvents, parentEvents;
+
+    elEvents = $('.events ul li');
+
+    if(elEvents.length > 3) {
+
+        idx++;
+
+        if ((idx*3) >= elEvents.length) {
+            idx=0;
+        }
+
+        // update the page number
+        $('#page').html((idx+1) + '/' + Math.ceil(elEvents.length/3) );
+
+        // selectively hide events not in the display range
+        for (var i=0; i<elEvents.length; i++) {
+            var offset = (idx*3)
+            if (i >= offset && i <= offset+2) {
+                $(elEvents[i]).removeClass('hidden');
+            } else {
+                $(elEvents[i]).addClass('hidden');
+            }
+        }
+        updateTexts();
+    } else {
+        $('#page').html('');
+    }
 }
 
 $(document).ready(function() {
