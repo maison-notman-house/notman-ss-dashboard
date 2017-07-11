@@ -312,7 +312,7 @@ function cycleEvents() {
 
     elEvents = $('.events ul li');
 
-    if(elEvents.length > 3) {
+    if (elEvents.length > 3) {
 
         idx++;
 
