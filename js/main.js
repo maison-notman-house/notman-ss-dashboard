@@ -12,16 +12,16 @@ var dayMode = 'Today';
 // way they are entered into the calendar. Should this be
 // moved to the API server?
 var roomToKey = {
-    'glass door room': 'st-urbain room',
-    'glass door': 'st-urbain room',
-    'glassdoor': 'st-urbain room',
-    'saint-urbain': 'st-urbain room',
-    'st-urbain': 'st-urbain room',
-    'st-urbain room': 'st-urbain room',
-    'bigroom': 'clark room',
-    'big room': 'clark room',    
-    'clark room': 'clark room', 
-    'clark': 'clark room', 
+    'glass door room': 'st-urbain',
+    'glass door': 'st-urbain',
+    'glassdoor': 'st-urbain',
+    'saint-urbain': 'st-urbain',
+    'st-urbain': 'st-urbain',
+    'st-urbain room': 'st-urbain',
+    'bigroom': 'clark',
+    'big room': 'clark',
+    'clark room': 'clark',
+    'clark': 'clark',
     'osmocafe': 'osmocafe',
     'osmo cafe': 'osmocafe',
     'cafe': 'osmocafe',
@@ -43,8 +43,8 @@ var floorFromRoom = {
 var strings = {
     en: {
         "room-alloffices": 'all offices',
-        "room-clark": 'clark room',
-        "room-st-urbain": 'st-urbain room',
+        "room-clark": 'clark',
+        "room-st-urbain": 'st-urbain',
         "room-washroom": 'washrooms',
         "room-osmocafe": 'osmo café',
         "room-floor3": '3rd floor',
@@ -82,8 +82,8 @@ var strings = {
     },
     fr: {
         "room-alloffices": 'bureaux',
-        "room-clark": 'salle clark',
-        "room-st-urbain": 'salle st-urbain',
+        "room-clark": 'clark',
+        "room-st-urbain": 'st-urbain',
         "room-washroom": 'toilettes',
         "room-osmocafe": 'café osmo',
         "room-floor3": '3ieme étage',

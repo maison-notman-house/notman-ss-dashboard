@@ -65,12 +65,12 @@ header .notmanlogo {
     ;
 }
 
-.events li.bigroom .roomlabel {
+.events li.clark .roomlabel {
     background: purple;
     color: white;
 }
 
-.events li.glassdoor .roomlabel {
+.events li.st-urbain .roomlabel {
     background: #009688;
     color: white;
 }
