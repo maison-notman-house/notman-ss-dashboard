@@ -30,6 +30,8 @@ var roomToKey = {
     'bdc': 'bdc',
     'terrace': 'terrace',
     'cisco': 'cisco',
+    'ciscoroom': 'cisco',
+    'cisco room': 'cisco',
     'videotron': 'videotron'
 };
 
@@ -123,6 +125,8 @@ var strings = {
 }
 
 function getNormalisedRoomRef(roomRef) {
+    roomRef = roomRef.toLowerCase();
+
     if (roomToKey[roomRef]) {
         return roomToKey[roomRef];
     } else if (roomRef) {
@@ -203,6 +207,7 @@ function updateDayMode() {
 function updateTexts() {
     updateDate();
     updateDayMode();
+    var lang = languages[langIdx];
 
     var i, key;
     var events = $('.events li');
@@ -214,7 +219,6 @@ function updateTexts() {
         $('.roomdirections', events[i]).html(getDirections(key));
     }
 
-    console.log('===', 'events-heading-' + days[dayMode]);
     $('.events h1 #main-title').html(strings[lang]['events-heading-' + days[dayMode]]);
 
     $('#allrooms .alloffices').html(getText('room-alloffices-long'));
@@ -345,6 +349,7 @@ $(document).ready(function() {
     setInterval(updateTime, 1000);
     setInterval(updateDate, 1000);
     setInterval(switchLocale, 5000);
+    setInterval(cycleEvents, 7000);
     // every 30 minutes
     setInterval(updateEvents, 60000 * 30);
 });
