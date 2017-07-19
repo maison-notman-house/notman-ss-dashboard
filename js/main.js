@@ -25,7 +25,7 @@ var roomToKey = {
     'osmocafe': 'osmocafe',
     'osmo cafe': 'osmocafe',
     'cafe': 'osmocafe',
-    'café	': 'osmocafe',
+    'café': 'osmocafe',
     '3rd floor': 'floor3',
     'bdc': 'bdc',
     'terrace': 'terrace',
