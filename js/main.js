@@ -282,7 +282,6 @@ function cleanupPastEvents() {
             var date = new Date(eventDay.date + 'T00:00:00');
             return date >= today;
         });
-        console.log(allEvents);
     }
 }
 
