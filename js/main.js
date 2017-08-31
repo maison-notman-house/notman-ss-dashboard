@@ -327,16 +327,13 @@ function renderEvents() {
 }
 
 function updateEvents() {
-    //if (!fetch) {
-        console.log(fetch)
-    // }
     fetch('https://notman.herokuapp.com/api/events?24hour=1').then(function(response) {
         errorMsg = undefined;
         var contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
             return response.json().then(function(json) {
                 allEvents = json;
-                cleanupPastEvents();
+                // cleanupPastEvents();
                 renderEvents();
                 cycleEvents();
             });
