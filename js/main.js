@@ -269,6 +269,12 @@ function renderEvent(event) {
     return html;
 }
 
+// https://stackoverflow.com/questions/33908299/javascript-parse-a-string-to-date-as-local-time-zone
+function parseISOLocal(s) {
+    var b = s.split(/\D/);
+    return new Date(b[0], b[1]-1, b[2], b[3], b[4], b[5]);
+}
+
 // This is mainly to clean up any event from yesterday, usually
 // because they were left over during a connectivity issue
 function cleanupPastEvents() {
@@ -279,7 +285,7 @@ function cleanupPastEvents() {
         today.setSeconds(0);
         today.setMilliseconds(0);
         allEvents = allEvents.filter((eventDay) => {
-            var date = new Date(eventDay.date + 'T00:00:00');
+            var date = parseISOLocal(eventDay.date + 'T00:00:00');         
             return date >= today;
         });
     }
@@ -321,6 +327,9 @@ function renderEvents() {
 }
 
 function updateEvents() {
+    //if (!fetch) {
+        console.log(fetch)
+    // }
     fetch('https://notman.herokuapp.com/api/events?24hour=1').then(function(response) {
         errorMsg = undefined;
         var contentType = response.headers.get("content-type");
