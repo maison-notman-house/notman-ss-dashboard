@@ -292,7 +292,7 @@ function renderEvents() {
 
     var html = '';
     var foundEvents = false;
-    if (events) {
+    if (events && events.length > 0) {
         events.forEach(function(day) {
             var i;
             var items;
@@ -304,18 +304,26 @@ function renderEvents() {
                 }
             }
         });
+    } else if (errorMsg) {
+        html = '<div>Error: ' + errorMsg + '</div>';
     }
 
-    if (!foundEvents) {
+    if (!errorMsg && !foundEvents) {
         html = '<p class="noevents">' + getText('noevents-' + dayMode) + '</p>';
     }
 
     $('.events ul').html(html);
+
+    if (errorMsg) {
+        $('#error').html('Error: ' + errorMsg);
+    } else {
+        $('#error').html('');
+    }
 }
 
 function updateEvents() {
     fetch('https://notman.herokuapp.com/api/events?24hour=1').then(function(response) {
-        error = undefined;
+        errorMsg = undefined;
         var contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
             return response.json().then(function(json) {
@@ -329,16 +337,16 @@ function updateEvents() {
         }
     }).catch((error) => {
         if (error instanceof TypeError) {
-            console.log('type error: ', error);
             var message = error.message;
             // error is not consistent between browsers when we can't connect to internet
             if (message === 'NetworkError when attempting to fetch resource.'
                 || message === 'Failed to fetch') {
-                errorMsg = 'no internet';
+                errorMsg = 'unable to fetch events';
             }
         } else {
             errorMsg = error.message;
         }
+        renderEvents();
         cycleEvents();
     });
 
@@ -373,12 +381,6 @@ function cycleEvents() {
         updateTexts();
     } else {
         $('#page').html('');
-    }
-
-    if (errorMsg) {
-        $('#error').html('error: ' + errorMsg);
-    } else {
-        $('#error').html('');
     }
 }
 
