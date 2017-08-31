@@ -121,6 +121,20 @@ header .notmanlogo {
     vertical-align: top;
 }
 
+/* .marquee {
+    width: 450px;
+    margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    animation: marquee 50s linear infinite;
+}
+
+@keyframes marquee {
+    0%   { text-indent: 0em }
+    100% { text-indent: -105em }
+} */
+
 .events li .eventtitle::before {
     content: ' - ';
 }
@@ -151,6 +165,14 @@ header .notmanlogo {
     bottom: 30px;
     font-size: 30px;
 }
+
+#error {
+    position: absolute;
+    left: 30px;
+    bottom: 80px;
+    font-size: 30px;
+}
+
 
 #allrooms {
     position: absolute;

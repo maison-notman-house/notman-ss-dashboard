@@ -1,6 +1,7 @@
 var languages = ['en', 'fr'];
 var langIdx = 0;
-
+var errorMsg;
+var allEvents = [];
 var days = {
     'Today': 'today',
     'Tomorrow': 'tomorrow'
@@ -262,14 +263,31 @@ function renderEvent(event) {
     var html = '<li class="' + normalisedRoomRef + '">';
     html += '<div class="roomlabel"> ' + roomLabel + '</div>';
     html += '<div class="details">';
-    html += '<span class="eventtime">' + event.start + '</span><span class="eventtitle">' + event.title + '</span>';
+    html += '<span class="eventtime">' + event.start + '</span><span class="eventtitle marquee">' + event.title + '</span>';
     html += '<span class="roomdirections">' + getDirections(normalisedRoomRef) + '</span>';
     html += '</li>';
     return html;
 }
 
-function renderEvents(events) {
-    //var isoDate = toISODate(new Date());
+// This is mainly to clean up any event from yesterday, usually
+// because they were left over during a connectivity issue
+function cleanupPastEvents() {
+    if (allEvents && allEvents.length > 0) {
+        var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        allEvents = allEvents.filter((eventDay) => {
+            var date = new Date(eventDay.date + 'T00:00:00');
+            return date >= today;
+        });
+        console.log(allEvents);
+    }
+}
+
+function renderEvents() {
+    var events = allEvents;
     $('.events ul').html('');
 
     var html = '';
@@ -297,15 +315,31 @@ function renderEvents(events) {
 
 function updateEvents() {
     fetch('https://notman.herokuapp.com/api/events?24hour=1').then(function(response) {
+        error = undefined;
         var contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
             return response.json().then(function(json) {
-                renderEvents(json);
+                allEvents = json;
+                cleanupPastEvents();
+                renderEvents();
                 cycleEvents();
             });
         } else {
             console.log("Oops, we haven't got JSON!");
         }
+    }).catch((error) => {
+        if (error instanceof TypeError) {
+            console.log('type error: ', error);
+            var message = error.message;
+            // error is not consistent between browsers when we can't connect to internet
+            if (message === 'NetworkError when attempting to fetch resource.'
+                || message === 'Failed to fetch') {
+                errorMsg = 'no internet';
+            }
+        } else {
+            errorMsg = error.message;
+        }
+        cycleEvents();
     });
 
 }
@@ -339,6 +373,12 @@ function cycleEvents() {
         updateTexts();
     } else {
         $('#page').html('');
+    }
+
+    if (errorMsg) {
+        $('#error').html('error: ' + errorMsg);
+    } else {
+        $('#error').html('');
     }
 }
 
