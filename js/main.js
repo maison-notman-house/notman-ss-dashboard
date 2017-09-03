@@ -284,8 +284,8 @@ function cleanupPastEvents() {
         today.setMinutes(0);
         today.setSeconds(0);
         today.setMilliseconds(0);
-        allEvents = allEvents.filter((eventDay) => {
-            var date = parseISOLocal(eventDay.date + 'T00:00:00');         
+        allEvents = allEvents.filter(function (eventDay) {
+            var date = parseISOLocal(eventDay.date + 'T00:00:00');
             return date >= today;
         });
     }
@@ -340,7 +340,7 @@ function updateEvents() {
         } else {
             console.log("Oops, we haven't got JSON!");
         }
-    }).catch((error) => {
+    }).catch(function (error) {
         if (error instanceof TypeError) {
             var message = error.message;
             // error is not consistent between browsers when we can't connect to internet
