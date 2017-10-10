@@ -19,6 +19,7 @@ var roomToKey = {
     'saint-urbain': 'st-urbain',
     'st-urbain': 'st-urbain',
     'st-urbain room': 'st-urbain',
+    'saint-urbain room': 'st-urbain',
     'bigroom': 'clark',
     'big room': 'clark',
     'clark room': 'clark',
@@ -162,14 +163,21 @@ function getDirections(roomRef) {
 }
 
 function getRoomLabel(roomRef) {
-    var label = getText(roomRef);
-    if (!label) {
-        label = roomRef;
-    }
 
-    if (roomRef.match(/.*\-([0-9]+)/)) {
-        var room = roomRef.match(/([0-9])+/)[0]
+    var prefixedRoomRef = 'room-' + roomRef;
+
+    var label = getText(prefixedRoomRef);
+
+//     if (!label) {
+//         label = roomRef;
+//     }
+
+    console.log('....', label);
+    if (prefixedRoomRef.match(/.*\-([0-9]+)/)) {
+        var room = prefixedRoomRef.match(/([0-9])+/)[0]
         label = getText('office') + ' ' + room;
+    } else if (!label || label.length === 0) {
+        label = roomRef;
     }
 
     return label;
@@ -180,7 +188,7 @@ function getText(key) {
     if (strings[lang][key]) {
         return strings[lang][key];
     } else {
-        return key;
+        return '';//undefined;//key;
     }
 }
 
@@ -214,8 +222,7 @@ function updateTexts() {
     var events = $('.events li');
     for (i = 0; i < events.length; i++) {
         key = events[i].className;
-        roomLabel = getRoomLabel('room-' + key)
-
+        roomLabel = getRoomLabel(key)
         $('.roomlabel', events[i]).html(roomLabel);
         $('.roomdirections', events[i]).html(getDirections(key));
     }
@@ -258,7 +265,7 @@ function renderEvent(event) {
     var roomRef = event.room;
 
     var normalisedRoomRef = getNormalisedRoomRef(roomRef);
-    roomLabel = getRoomLabel('room-' + normalisedRoomRef)
+    roomLabel = getRoomLabel(normalisedRoomRef)
 
     var html = '<li class="' + normalisedRoomRef + '">';
     html += '<div class="roomlabel"> ' + roomLabel + '</div>';
