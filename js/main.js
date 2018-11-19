@@ -188,16 +188,23 @@ function getText(key) {
     if (strings[lang][key]) {
         return strings[lang][key];
     } else {
-        return '';//undefined;//key;
+        return '';
     }
 }
 
-function updateDate() {
+function updateDate(lang) {
     $('.date').html(moment().format('DD MMMM YYYY'));
 }
 
-function updateTime() {
-    $('.time').html(moment().format('HH:mm'));
+function updateTime(lang) {
+    if (!lang) {
+       lang = languages[langIdx];
+    }
+    if (lang && lang.startsWith('fr')) {
+       $('.time').html(moment().format('HH:mm'));
+    } else {
+       $('.time').html(moment().format('h:mm a'));
+    }
 }
 
 /**
@@ -214,9 +221,13 @@ function updateDayMode() {
 
 
 function updateTexts() {
-    updateDate();
-    updateDayMode();
+//     updateDate();
+//     updateDayMode();
     var lang = languages[langIdx];
+
+    updateDate(lang);
+    updateDayMode();
+    updateTime(lang);
 
     var i, key;
     var events = $('.events li');
