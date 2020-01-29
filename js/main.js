@@ -245,6 +245,22 @@ function updateTexts() {
     $('#allrooms .st-urbain').html(getText('room-st-urbain-long'));
 
     $('.noevents').html(getText('noevents-' + days[dayMode]));
+
+    if (events.length === 0) {
+        console.log('lang');
+
+        $('.events').addClass('hidden');
+        if (lang === 'fr') {
+            $('#alt-content-en').addClass('hidden');
+            $('#alt-content-fr').removeClass('hidden');
+        } else {
+            $('#alt-content-fr').addClass('hidden');
+            $('#alt-content-en').removeClass('hidden');
+        }
+    } else {
+        $('#alt-content-fr').addClass('hidden');
+        $('#alt-content-en').addClass('hidden');
+    }
 }
 
 function switchLocale() {
