@@ -172,7 +172,6 @@ function getRoomLabel(roomRef) {
 //         label = roomRef;
 //     }
 
-    console.log('....', label);
     if (prefixedRoomRef.match(/.*\-([0-9]+)/)) {
         var room = prefixedRoomRef.match(/([0-9])+/)[0]
         label = getText('office') + ' ' + room;
@@ -223,8 +222,6 @@ function handleAltContent() {
     var lang = languages[langIdx];
 
     if (!allEvents || allEvents.length === 0) {
-        console.log('lang');
-
         $('.events').addClass('hidden');
         if (lang === 'fr') {
             $('#alt-content-en').addClass('hidden');
