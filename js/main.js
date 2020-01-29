@@ -219,6 +219,25 @@ function updateDayMode() {
     }
 }
 
+function handleAltContent() {
+    var lang = languages[langIdx];
+
+    if (!allEvents || allEvents.length === 0) {
+        console.log('lang');
+
+        $('.events').addClass('hidden');
+        if (lang === 'fr') {
+            $('#alt-content-en').addClass('hidden');
+            $('#alt-content-fr').removeClass('hidden');
+        } else {
+            $('#alt-content-fr').addClass('hidden');
+            $('#alt-content-en').removeClass('hidden');
+        }
+    } else {
+        $('#alt-content-fr').addClass('hidden');
+        $('#alt-content-en').addClass('hidden');
+    }
+}
 
 function updateTexts() {
 //     updateDate();
@@ -246,21 +265,7 @@ function updateTexts() {
 
     $('.noevents').html(getText('noevents-' + days[dayMode]));
 
-    if (events.length === 0) {
-        console.log('lang');
-
-        $('.events').addClass('hidden');
-        if (lang === 'fr') {
-            $('#alt-content-en').addClass('hidden');
-            $('#alt-content-fr').removeClass('hidden');
-        } else {
-            $('#alt-content-fr').addClass('hidden');
-            $('#alt-content-en').removeClass('hidden');
-        }
-    } else {
-        $('#alt-content-fr').addClass('hidden');
-        $('#alt-content-en').addClass('hidden');
-    }
+    handleAltContent();
 }
 
 function switchLocale() {
@@ -329,6 +334,8 @@ function renderEvents() {
     var events = allEvents;
     $('.events ul').html('');
 
+    handleAltContent();
+
     var html = '';
     var foundEvents = false;
     if (events && events.length > 0) {
@@ -367,6 +374,7 @@ function updateEvents() {
         if (contentType && contentType.indexOf("application/json") !== -1) {
             return response.json().then(function(json) {
                 allEvents = json;
+                // TODO AJMAS
                 // cleanupPastEvents();
                 renderEvents();
                 cycleEvents();
