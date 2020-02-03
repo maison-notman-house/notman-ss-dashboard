@@ -1,8 +1,9 @@
-var languages = ['en', 'fr'];
-var langIdx = 0;
-var errorMsg;
-var allEvents = [];
-var days = {
+let languages = ['en', 'fr'];
+let langIdx = 0;
+let errorMsg;
+let allEvents = [];
+let hasEventsToShow = false;
+let days = {
     'Today': 'today',
     'Tomorrow': 'tomorrow'
 };
@@ -218,10 +219,11 @@ function updateDayMode() {
     }
 }
 
+
 function handleAltContent() {
     var lang = languages[langIdx];
 
-    if (!allEvents || allEvents.length === 0) {
+    if (hasEventsToShow) {
         $('.events').addClass('hidden');
         if (lang === 'fr') {
             $('#alt-content-en').addClass('hidden');
@@ -350,6 +352,8 @@ function renderEvents() {
     } else if (errorMsg) {
         html = '<div>Error: ' + errorMsg + '</div>';
     }
+
+    hasEventsToShow = !foundEvents;
 
     if (!errorMsg && !foundEvents) {
         html = '<p class="noevents">' + getText('noevents-' + dayMode) + '</p>';
